@@ -1,17 +1,14 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']    = 'Карта сайта';
 
 // Text
-$_['text_special']     = 'Акции';
+$_['text_special']     = 'Товары со скидкой';
 $_['text_account']     = 'Личный кабинет';
-$_['text_edit']        = 'Личная информация';
-$_['text_password']    = 'Пароль';
-$_['text_address']     = 'Мои адреса';
-$_['text_history']     = 'История заказа';
+$_['text_edit']        = 'Учетная запись';
+$_['text_password']    = 'Смена пароля';
+$_['text_address']     = 'Список адресов доставки';
+$_['text_history']     = 'История заказов';
 $_['text_download']    = 'Файлы для скачивания';
 $_['text_cart']        = 'Корзина покупок';
 $_['text_checkout']    = 'Оформление заказа';

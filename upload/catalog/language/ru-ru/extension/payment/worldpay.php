@@ -1,18 +1,15 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 
 // Text
-$_['text_title']			 = 'Credit Card / Debit Card (Worldpay)';
+$_['text_title']				= 'Кредитная карта / Дебетная карта (WorldPay)';
 $_['text_credit_card']		 = 'Card Details';
 $_['text_card_type']		 = 'Card Type: ';
 $_['text_card_name']		 = 'Card Name: ';
 $_['text_card_digits']		 = 'Last Digits: ';
 $_['text_card_expiry']		 = 'Expiry: ';
-$_['text_trial']			 = 'Сумма: %s; Периодичность: %s %s; Кол-во платежей: %s, Далее ';
-$_['text_recurring']		 = 'Сумма: %s Периодичность: %s %s';
-$_['text_length']			 = ' Кол-во платежей: %s';
+$_['text_trial']			 = '%s every %s %s for %s payments then ';
+$_['text_recurring']		 = '%s every %s %s';
+$_['text_length']			 = ' for %s payments';
 $_['text_confirm_delete']	 = 'Are you sure you wish to delete this card';
 $_['text_card_success']		 = 'Card has been successfully removed';
 $_['text_card_error']		 = 'There are an error removing your card. Please contact the shop administrator for help.';

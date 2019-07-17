@@ -1,10 +1,7 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Text
-$_['text_title']				= 'Cheque / Money Order';
-$_['text_instruction']			= 'Cheque / Money Order Instructions';
-$_['text_payable']				= 'Make Payable To: ';
-$_['text_address']				= 'Send To: ';
-$_['text_payment']				= 'Заказ не будет обработан, пока деньги не поступят на наш расчетный счёт.';
+$_['text_title']				= 'Чек / денежный перевод';
+$_['text_instruction']			= 'Инструкции по оплате чеком / денежным переводом';
+$_['text_payable']				= 'Оплата производится на имя: ';
+$_['text_address']				= 'Кому отправить: ';
+$_['text_payment']				= 'Ваш заказ не будет отправлен, пока мы не получим оплату.';

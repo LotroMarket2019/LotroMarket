@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Headings
 $_['heading_title']      		= 'Edit listing';
 $_['text_openbay']          	= 'OpenBay Pro';
@@ -13,12 +10,12 @@ $_['text_etsy']             	= 'Etsy';
 $_['text_option']      			= 'Select option';
 $_['text_listing_id']  			= 'Listing ID';
 $_['text_updated']  			= 'Your Etsy listing has been updated';
-$_['text_edit']  				= 'Редактирование';
+$_['text_edit']  				= 'Update your Etsy listing';
 
 // Entry
 $_['entry_title']      			= 'Product title';
-$_['entry_description']     	= 'Описание';
-$_['entry_price']      			= 'Цена';
+$_['entry_description']     	= 'Description';
+$_['entry_price']      			= 'Price';
 $_['entry_state']      			= 'State';
 
 // Errors

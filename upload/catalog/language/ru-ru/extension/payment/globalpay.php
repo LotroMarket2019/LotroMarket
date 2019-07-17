@@ -1,15 +1,12 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['text_title']				= 'Credit / Debit card (Globalpay)';
 
 // Button
-$_['button_confirm']			= 'Подтвердить';
+$_['button_confirm']			= 'Confirm';
 
 // Entry
-$_['entry_cc_type']				= 'Тип карты';
+$_['entry_cc_type']				= 'Card Type';
 
 // Text
 $_['text_success']				= 'Your payment has been authorised.';
@@ -20,7 +17,7 @@ $_['text_hash_failed']			= 'Hash check failed. Do not try your payment again as 
 $_['text_link']					= 'Please click <a href="%s">here</a> to continue';
 $_['text_select_card']			= 'Please select your card type';
 $_['text_result']				= 'Auth result';
-$_['text_message']				= 'Сообщение';
+$_['text_message']				= 'Message';
 $_['text_cvn_result']			= 'CVN result';
 $_['text_avs_postcode']			= 'AVS postcode';
 $_['text_avs_address']			= 'AVS address';
@@ -28,8 +25,8 @@ $_['text_eci']					= 'ECI (3D secure) result';
 $_['text_tss']					= 'TSS result';
 $_['text_order_ref']			= 'Order ref';
 $_['text_timestamp']			= 'Timestamp';
-$_['text_card_type']			= 'Тип карты';
-$_['text_card_digits']			= 'Номер карты';
+$_['text_card_type']			= 'Card type';
+$_['text_card_digits']			= 'Card number';
 $_['text_card_exp']				= 'Card expire';
 $_['text_card_name']			= 'Card name';
 $_['text_3d_s1']				= 'Cardholder Not Enrolled, liability shift';

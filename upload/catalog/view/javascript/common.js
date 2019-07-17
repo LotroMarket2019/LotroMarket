@@ -1,7 +1,7 @@
 function getURLVar(key) {
 	var value = [];
 
-	var query = String(document.location).split('?');
+	var query = document.location.search.split('?');
 
 	if (query[1]) {
 		var part = query[1].split('&');
@@ -127,7 +127,7 @@ $(document).ready(function() {
 	});
 
 	// tooltips on hover
-	$('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
+	$('[data-toggle=\'tooltip\']').tooltip({container: 'body',trigger: 'hover'});
 
 	// Makes tooltips work on ajax generated content
 	$(document).ajaxStop(function() {
@@ -150,14 +150,14 @@ var cart = {
 				$('#cart > button').button('reset');
 			},
 			success: function(json) {
-				$('.alert-dismissible, .text-danger').remove();
+				$('.alert, .text-danger').remove();
 
 				if (json['redirect']) {
 					location = json['redirect'];
 				}
 
 				if (json['success']) {
-					$('#content').parent().before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+					$('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
 					// Need to set timeout otherwise it wont update the total
 					setTimeout(function () {
@@ -220,8 +220,10 @@ var cart = {
 				setTimeout(function () {
 					$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
 				}, 100);
+				
+				var now_location = String(document.location.pathname);
 
-				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
+				if ((now_location == '/cart/') || (now_location == '/checkout/') || (getURLVar('route') == 'checkout/cart') || (getURLVar('route') == 'checkout/checkout')) {
 					location = 'index.php?route=checkout/cart';
 				} else {
 					$('#cart > ul').load('index.php?route=common/cart/info ul li');
@@ -277,14 +279,14 @@ var wishlist = {
 			data: 'product_id=' + product_id,
 			dataType: 'json',
 			success: function(json) {
-				$('.alert-dismissible').remove();
+				$('.alert').remove();
 
 				if (json['redirect']) {
 					location = json['redirect'];
 				}
 
 				if (json['success']) {
-					$('#content').parent().before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+					$('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 				}
 
 				$('#wishlist-total span').html(json['total']);
@@ -310,10 +312,10 @@ var compare = {
 			data: 'product_id=' + product_id,
 			dataType: 'json',
 			success: function(json) {
-				$('.alert-dismissible').remove();
+				$('.alert').remove();
 
 				if (json['success']) {
-					$('#content').parent().before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+					$('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
 					$('#compare-total').html(json['total']);
 
@@ -351,7 +353,7 @@ $(document).delegate('.agree', 'click', function(e) {
 			html += '        <h4 class="modal-title">' + $(element).text() + '</h4>';
 			html += '      </div>';
 			html += '      <div class="modal-body">' + data + '</div>';
-			html += '    </div>';
+			html += '    </div';
 			html += '  </div>';
 			html += '</div>';
 

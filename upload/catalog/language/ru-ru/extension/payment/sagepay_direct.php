@@ -1,32 +1,28 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Text
-$_['text_title']				= 'Credit Card / Debit Card (SagePay)';
-$_['text_credit_card']			= 'Card Details';
-$_['text_card_type']			= 'Card Type: ';
-$_['text_card_name']			= 'Card Name: ';
-$_['text_card_digits']			= 'Last Digits: ';
-$_['text_card_expiry']			= 'Expiry: ';
-$_['text_trial']				= 'Сумма: %s; Периодичность: %s %s; Кол-во платежей: %s, Далее ';
-$_['text_recurring']			= 'Сумма: %s Периодичность: %s %s';
-$_['text_length']				= ' Кол-во платежей: %s';
+$_['text_title']				= 'Кредитная карта / Дебетовая карта (SagePay)';
+$_['text_credit_card']			= 'Данные карты';
+$_['text_card_type']			= 'Тип карты: ';
+$_['text_card_name']			= 'Название карты: ';
+$_['text_card_digits']			= 'Последние цифры: ';
+$_['text_card_expiry']			= 'Срок действия: ';
+$_['text_trial']				= '%s каждый %s %s из %s платежей тогда ';
+$_['text_recurring']			= '%s каждый %s %s';
+$_['text_length']				= ' для %s платежей';
+$_['text_fail_card']			= 'Там был вопрос удаления вашей SagePay карты, пожалуйста, обратитесь к администрации магазина за помощью.';
+$_['text_confirm_delete']		= 'Are you sure you want to delete the card?';
 
 // Entry
-$_['entry_card']				= 'New or Existing Card: ';
-$_['entry_card_existing']		= 'Existing';
-$_['entry_card_new']			= 'New';
-$_['entry_card_save']			= 'Remember Card Details';
-$_['entry_cc_owner']			= 'Card Owner';
+$_['entry_card']				= 'Новая или существующая карта: ';
+$_['entry_card_existing']		= 'Существующая';
+$_['entry_card_new']			= 'Новая';
+$_['entry_card_save']			= 'Запомнить данные карты';
+$_['entry_cc_owner']			= 'Владелец карты';
 $_['entry_cc_type']				= 'Тип карты';
 $_['entry_cc_number']			= 'Номер карты';
-$_['entry_cc_start_date']		= 'Дата начала срока действия карты';
-$_['entry_cc_expire_date']		= 'Дата окончания срока действия карты';
-$_['entry_cc_cvv2']				= 'Код безопасности (CVV2)';
-$_['entry_cc_issue']			= 'Код карты (Issue)';
-$_['entry_cc_choice']			= 'Choose an Existing Card';
+$_['entry_cc_expire_date']		= 'Срок действия карты';
+$_['entry_cc_cvv2']				= 'Код безопасности карты (CVV2)';
+$_['entry_cc_choice']			= 'Выберите существующую карту';
 
-// Help
-$_['help_start_date']			= '(если известно)';
-$_['help_issue']				= '(только для Maestro и Solo карт)';
+// Button
+$_['button_delete_card']		= 'Удалить выбранную карту';

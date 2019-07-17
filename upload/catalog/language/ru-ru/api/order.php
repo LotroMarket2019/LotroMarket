@@ -1,19 +1,16 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Text
-$_['text_success']           = 'Ваш заказ обновлен!';
+$_['text_success']           = 'Заказ был успешно изменен';
 
 // Error
-$_['error_permission']       = 'Вы не имеете разрешения на доступ к API!';
-$_['error_customer']         = 'Укажите данные Покупателя!';
-$_['error_payment_address']  = 'Укажите платежный адрес!';
-$_['error_payment_method']   = 'Необходимо указать способ оплаты!';
-$_['error_no_payment']       = 'Не доступно без вариантов оплаты!';
-$_['error_shipping_address'] = 'Укажите адрес доставки!';
-$_['error_shipping_method']  = 'Необходимо указать способ доставки!';
-$_['error_no_shipping']      = 'Не доступно без вариантов доставки!';
-$_['error_stock']            = 'Товары, отмеченные ***, недоступны в нужном количестве или отсутствуют на складе!';
-$_['error_minimum']          = 'Минимальное количество для заказа товара %s составляет %s!';
-$_['error_not_found']        = 'Запрошенный заказ не найден!';
+$_['error_permission']       = 'Внимание: У вас нет разрешения на доступ к API!';
+$_['error_customer']         = 'Необходимо задать сведения о клиенте !';
+$_['error_payment_address']  = 'Требуется адрес оплаты!';
+$_['error_payment_method']   = 'Требуется способ оплаты!';
+$_['error_no_payment']       = 'Внимание: Варианты оплаты недоступны!';
+$_['error_shipping_address'] = 'Требуется адрес доставки!';
+$_['error_shipping_method']  = 'Требуется способ доставки!';
+$_['error_no_shipping']      = 'Внимание: Варианты доставки недоступны!';
+$_['error_stock']            = 'Товары, отмеченные *** не доступны в требуемом количестве или нет на складе!';
+$_['error_minimum']          = 'Минимальная сумма заказа для %s-%s!';
+$_['error_not_found']        = 'Внимание: Заказ не найден!';

@@ -1,12 +1,9 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
-$_['heading_title'] = 'Капча';
+$_['heading_title'] = 'Защитный код';
 
 // Entry
-$_['entry_captcha'] = 'Введите код в поле ниже';
+$_['entry_captcha'] = 'Введите код';
 
 // Error
-$_['error_captcha'] = 'Неверно введен код с картинки!';
+$_['error_captcha'] = 'Введен неверный код!';

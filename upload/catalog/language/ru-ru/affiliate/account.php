@@ -1,12 +1,9 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']        = 'Партнерcкий раздел';
 
 // Text
-$_['text_account']         = 'Кабинет Партнера';
+$_['text_account']         = 'Кабинет партнера';
 $_['text_my_account']      = 'Моя учетная запись';
 $_['text_my_tracking']     = 'Мои рефералы';
 $_['text_my_transactions'] = 'История выплат';

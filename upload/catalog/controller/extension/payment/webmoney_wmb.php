@@ -11,6 +11,8 @@ class ControllerExtensionPaymentWebmoneyWMB extends Controller {
 	}
 
 	public function index() {
+		$data['button_confirm'] = $this->language->get('button_confirm');
+		
 		$data['action'] = 'https://merchant.webmoney.ru/lmi/payment.asp';
 		$data['confirm'] = $this->url->link('extension/payment/webmoney_wmb/confirm', '', 'SSL');
 		
@@ -26,12 +28,12 @@ class ControllerExtensionPaymentWebmoneyWMB extends Controller {
 		$LMI_PAYMENT_DESC_BASE64 = base64_encode(html_entity_decode(sprintf($this->language->get('text_desc'), $this->config->get('config_name'), $this->session->data['order_id']), ENT_QUOTES, 'UTF-8'));
 		
 		$data['params'] = array(
-			'LMI_PAYEE_PURSE'         => $this->config->get('payment_webmoney_wmb_merch_r'),  // Номер кошелька
+			'LMI_PAYEE_PURSE'         => $this->config->get('webmoney_wmb_merch_r'),  // Номер кошелька
 			'LMI_PAYMENT_AMOUNT'      => $amount,
 			'LMI_PAYMENT_NO'          => $this->session->data['order_id']
 		);
 
-		$LMI_PAYMENTFORM_SIGN = implode(';', array_values($data['params'])) . ';' . $this->config->get('payment_webmoney_wmb_secret_key_x20') . ';';
+		$LMI_PAYMENTFORM_SIGN = implode(';', array_values($data['params'])) . ';' . $this->config->get('webmoney_wmb_secret_key_x20') . ';';
 		
 		$data['params']['LMI_PAYMENT_DESC_BASE64'] = $LMI_PAYMENT_DESC_BASE64;
 		$data['params']['LMI_PAYMENTFORM_SIGN'] = strtoupper(hash('sha256', $LMI_PAYMENTFORM_SIGN));
@@ -39,13 +41,13 @@ class ControllerExtensionPaymentWebmoneyWMB extends Controller {
 		$this->logWrite('Make payment form: ', self::$LOG_FULL);
 		$this->logWrite('  DATA: ' . var_export($data['params'], true), self::$LOG_FULL);
 		
-		return $this->load->view('extension/payment/webmoney_wmb', $data);
+		return $this->load->view('extension/payment/webmoney_wmb.tpl', $data);
 	}
 
 	public function confirm() {
 		if (!empty($this->session->data['order_id']) && ($this->session->data['payment_method']['code'] == 'webmoney_wmb')) {
 			$this->load->model('checkout/order');
-			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_webmoney_wmb_order_confirm_status_id'));
+			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('webmoney_wmb_order_confirm_status_id'));
 		}
 	}
 	
@@ -60,7 +62,7 @@ class ControllerExtensionPaymentWebmoneyWMB extends Controller {
 		
 		if($LMI_PAYMENT_NO) {
 			$this->load->model('checkout/order');
-			$this->model_checkout_order->addOrderHistory($LMI_PAYMENT_NO, $this->config->get('payment_webmoney_wmb_order_fail_status_id'),'Webmoney wmb Fail',true);
+			$this->model_checkout_order->addOrderHistory($LMI_PAYMENT_NO, $this->config->get('webmoney_wmb_order_fail_status_id'),'Webmoney WMB Fail',true);
 		}
 
 		$this->response->redirect($this->url->link('checkout/failure', '', 'SSL'));
@@ -104,7 +106,7 @@ class ControllerExtensionPaymentWebmoneyWMB extends Controller {
 		$LMI_HASH 				= $this->request->post['LMI_HASH'];
 		
 		
-		$LMI_SECRET_KEY = $this->config->get('payment_webmoney_wmb_secret_key');
+		$LMI_SECRET_KEY = $this->config->get('webmoney_wmb_secret_key');
 		
 		$md5_crc = strtoupper(md5($LMI_PAYEE_PURSE . $LMI_PAYMENT_AMOUNT . $LMI_PAYMENT_NO . $LMI_MODE . $LMI_SYS_INVS_NO . $LMI_SYS_TRANS_NO . $LMI_SYS_TRANS_DATE . $LMI_SECRET_KEY . $LMI_PAYER_PURSE . $LMI_PAYER_WM));
 		$sha256_crc = strtoupper(hash('sha256', $LMI_PAYEE_PURSE . $LMI_PAYMENT_AMOUNT . $LMI_PAYMENT_NO . $LMI_MODE . $LMI_SYS_INVS_NO . $LMI_SYS_TRANS_NO . $LMI_SYS_TRANS_DATE . $LMI_SECRET_KEY . $LMI_PAYER_PURSE . $LMI_PAYER_WM));
@@ -131,17 +133,17 @@ class ControllerExtensionPaymentWebmoneyWMB extends Controller {
  
     if ($amount_order != $amount_payment) {
 			$this->sendForbidden(sprintf($this->language->get('error_fraud'), $amount_payment, 'BYN', $amount_order, $order_info['currency_code']));
-			$this->model_checkout_order->addOrderHistory($LMI_PAYMENT_NO, $this->config->get('payment_webmoney_wmb_order_fail_status_id'),'Webmoney wmb Fraud: ' . $LMI_PAYER_PURSE, true);
+			$this->model_checkout_order->addOrderHistory($LMI_PAYMENT_NO, $this->config->get('webmoney_wmb_order_fail_status_id'),'Webmoney WMB Fraud: ' . $LMI_PAYER_PURSE, true);
       return 0;
     }
 		
-		if($LMI_PAYEE_PURSE != $this->config->get('payment_webmoney_wmb_merch_r')) {
+		if($LMI_PAYEE_PURSE != $this->config->get('webmoney_wmb_merch_r')) {
 			$this->sendForbidden(sprintf($this->language->get('error_merch_r'), $LMI_PAYEE_PURSE));
 			return 0;
 		}
 
-		if($order_info['order_status_id'] != $this->config->get('payment_webmoney_wmb_order_status_id')) {
-			$this->model_checkout_order->addOrderHistory($LMI_PAYMENT_NO, $this->config->get('payment_webmoney_wmb_order_status_id'),'Webmoney wmb Success: ' . $LMI_PAYER_PURSE, true);
+		if($order_info['order_status_id'] != $this->config->get('webmoney_wmb_order_status_id')) {
+			$this->model_checkout_order->addOrderHistory($LMI_PAYMENT_NO, $this->config->get('webmoney_wmb_order_status_id'),'Webmoney WMB Success: ' . $LMI_PAYER_PURSE, true);
 		}
 		
 		return true;
@@ -154,7 +156,7 @@ class ControllerExtensionPaymentWebmoneyWMB extends Controller {
   }
 
   protected function logWrite($message, $type) {
-      switch ($this->config->get('payment_webmoney_wmb_log')) {
+      switch ($this->config->get('webmoney_wmb_log')) {
           case self::$LOG_OFF:
               return;
           case self::$LOG_SHORT:
@@ -164,7 +166,7 @@ class ControllerExtensionPaymentWebmoneyWMB extends Controller {
       }
 
       if (!$this->log) {
-          $this->log = new Log($this->config->get('payment_webmoney_wmb_log_filename'));
+          $this->log = new Log($this->config->get('webmoney_wmb_log_filename'));
       }
 
       $this->log->Write($message);

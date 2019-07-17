@@ -1,10 +1,7 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Text
-$_['text_total_shipping']		= 'Доставка';
-$_['text_total_discount']		= 'Скидка';
-$_['text_total_tax']			= 'Без НДС';
-$_['text_total_sub']			= 'Итого';
-$_['text_total']				= 'Всего';
+$_['text_total_shipping']		= 'Shipping';
+$_['text_total_discount']		= 'Discount';
+$_['text_total_tax']			= 'Tax';
+$_['text_total_sub']			= 'Sub-total';
+$_['text_total']				= 'Total';

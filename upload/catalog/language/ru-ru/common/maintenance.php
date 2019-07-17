@@ -1,10 +1,7 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']    = 'Режим обслуживания';
 
 // Text
 $_['text_maintenance'] = 'Режим обслуживания';
-$_['text_message']      = '<h1 style="text-align:center;">Магазин временно закрыт: мы выполняем профилактические работы.<br/>Вскоре магазин будет доступен. Пожалуйста, зайдите позже.</h1>';
+$_['text_message']     = '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><h1 style="text-align:center;">В настоящее время магазин закрыт на техническое обслуживание. <br/>Пожалуйста, зайдите чуть позже!</h1><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';

@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 class ControllerAccountNewsletter extends Controller {
 	public function index() {
 		if (!$this->customer->isLogged()) {
@@ -13,7 +10,6 @@ class ControllerAccountNewsletter extends Controller {
 		$this->load->language('account/newsletter');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->document->setRobots('noindex,follow');
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
 			$this->load->model('account/customer');
@@ -41,6 +37,16 @@ class ControllerAccountNewsletter extends Controller {
 			'text' => $this->language->get('text_newsletter'),
 			'href' => $this->url->link('account/newsletter', '', true)
 		);
+
+		$data['heading_title'] = $this->language->get('heading_title');
+
+		$data['text_yes'] = $this->language->get('text_yes');
+		$data['text_no'] = $this->language->get('text_no');
+
+		$data['entry_newsletter'] = $this->language->get('entry_newsletter');
+
+		$data['button_continue'] = $this->language->get('button_continue');
+		$data['button_back'] = $this->language->get('button_back');
 
 		$data['action'] = $this->url->link('account/newsletter', '', true);
 

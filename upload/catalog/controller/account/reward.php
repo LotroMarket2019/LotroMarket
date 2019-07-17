@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 class ControllerAccountReward extends Controller {
 	public function index() {
 		if (!$this->customer->isLogged()) {
@@ -13,7 +10,6 @@ class ControllerAccountReward extends Controller {
 		$this->load->language('account/reward');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->document->setRobots('noindex,follow');
 
 		$data['breadcrumbs'] = array();
 
@@ -33,6 +29,17 @@ class ControllerAccountReward extends Controller {
 		);
 
 		$this->load->model('account/reward');
+
+		$data['heading_title'] = $this->language->get('heading_title');
+
+		$data['column_date_added'] = $this->language->get('column_date_added');
+		$data['column_description'] = $this->language->get('column_description');
+		$data['column_points'] = $this->language->get('column_points');
+
+		$data['text_total'] = $this->language->get('text_total');
+		$data['text_empty'] = $this->language->get('text_empty');
+
+		$data['button_continue'] = $this->language->get('button_continue');
 
 		if (isset($this->request->get['page'])) {
 			$page = $this->request->get['page'];

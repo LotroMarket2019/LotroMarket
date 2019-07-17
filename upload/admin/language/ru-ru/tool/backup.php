@@ -1,25 +1,15 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
-$_['heading_title']    = 'Бэкап / Восстановление';
+$_['heading_title']    = 'Управление резервной копией';
 
 // Text
-$_['text_backup']      = 'Архивировать базу данных';
-$_['text_success']     = 'База данных импортирована!';
-$_['text_list']        = 'Список загрузок';
+$_['text_success']     = 'Восстановление таблиц прошло успешно!';
 
 // Entry
-$_['entry_progress']   = 'Процесс';
-$_['entry_export']     = 'Экспорт';
-
-
-// Tab
-$_['tab_backup']       = 'Экспорт';
-$_['tab_restore']      = 'Импорт';
+$_['entry_import']     = 'Восстановить резерную копию';
+$_['entry_export']     = 'Сохранить таблицы:';
 
 // Error
-$_['error_permission'] = 'У вас недостаточно прав для внесения изменений!';
-$_['error_backup']     = 'Надо выбрать хотя бы одну таблицу!';
-$_['error_empty']      = 'Загруженный файл пуст!';
+$_['error_permission'] = 'У вас нет прав на управление резервной копией!';
+$_['error_export']     = 'Для резервного копирования необходимо выбрать хотя бы одну таблицу!';
+$_['error_empty']      = 'Внимание: Загруженный файл пустой!';

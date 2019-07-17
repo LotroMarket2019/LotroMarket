@@ -1,9 +1,6 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Text
-$_['text_title']    = 'Australia Post';
-$_['text_express']  = 'Express';
-$_['text_standard'] = 'Standard';
-$_['text_eta']      = 'Дни';
+$_['text_title']    = 'Почта Австралии';
+$_['text_express']  = 'Экспресс';
+$_['text_standard'] = 'Стандарт';
+$_['text_eta']      = 'суток';

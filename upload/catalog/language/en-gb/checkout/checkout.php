@@ -1,10 +1,6 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
-$_['heading_title'] 		 = 'Checkout';
-$_['heading_title_customer'] = 'Your Order #%s Has Been Placed!';
+$_['heading_title']                  = 'Checkout';
 
 // Text
 $_['text_cart']                      = 'Shopping Cart';
@@ -59,6 +55,7 @@ $_['entry_confirm']                  = 'Password Confirm';
 $_['entry_firstname']                = 'First Name';
 $_['entry_lastname']                 = 'Last Name';
 $_['entry_telephone']                = 'Telephone';
+$_['entry_fax']                      = 'Fax';
 $_['entry_address']                  = 'Choose Address';
 $_['entry_company']                  = 'Company';
 $_['entry_customer_group']           = 'Customer Group';
@@ -69,7 +66,7 @@ $_['entry_city']                     = 'City';
 $_['entry_country']                  = 'Country';
 $_['entry_zone']                     = 'Region / State';
 $_['entry_newsletter']               = 'I wish to subscribe to the %s newsletter.';
-$_['entry_shipping']                 = 'My delivery and billing addresses are the same.';
+$_['entry_shipping'] 	             = 'My delivery and billing addresses are the same.';
 
 // Error
 $_['error_warning']                  = 'There was a problem while trying to process your order! If the problem persists please try selecting a different payment method or you can contact the store owner by <a href="%s">clicking here</a>.';

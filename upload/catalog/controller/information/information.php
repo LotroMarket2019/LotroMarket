@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 class ControllerInformationInformation extends Controller {
 	public function index() {
 		$this->load->language('information/information');
@@ -24,23 +21,13 @@ class ControllerInformationInformation extends Controller {
 		$information_info = $this->model_catalog_information->getInformation($information_id);
 
 		if ($information_info) {
-			
+
 			if ($information_info['meta_title']) {
 				$this->document->setTitle($information_info['meta_title']);
 			} else {
 				$this->document->setTitle($information_info['title']);
 			}
-			
-			if ($information_info['noindex'] <= 0) {
-				$this->document->setRobots('noindex,follow');
-			}
-			
-			if ($information_info['meta_h1']) {
-				$data['heading_title'] = $information_info['meta_h1'];
-			} else {
-				$data['heading_title'] = $information_info['title'];
-			}
-			
+
 			$this->document->setDescription($information_info['meta_description']);
 			$this->document->setKeywords($information_info['meta_keyword']);
 
@@ -48,6 +35,14 @@ class ControllerInformationInformation extends Controller {
 				'text' => $information_info['title'],
 				'href' => $this->url->link('information/information', 'information_id=' .  $information_id)
 			);
+
+			if ($information_info['meta_h1']) {
+				$data['heading_title'] = $information_info['meta_h1'];
+			} else {
+				$data['heading_title'] = $information_info['title'];
+			}
+
+			$data['button_continue'] = $this->language->get('button_continue');
 
 			$data['description'] = html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8');
 
@@ -72,6 +67,8 @@ class ControllerInformationInformation extends Controller {
 			$data['heading_title'] = $this->language->get('text_error');
 
 			$data['text_error'] = $this->language->get('text_error');
+
+			$data['button_continue'] = $this->language->get('button_continue');
 
 			$data['continue'] = $this->url->link('common/home');
 

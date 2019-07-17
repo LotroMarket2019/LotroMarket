@@ -1,18 +1,15 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Headings
 $_['heading_title']        		= 'Marketplace settings';
 $_['text_openbay']              = 'OpenBay Pro';
 $_['text_etsy']                 = 'Etsy';
 
 // Text
-$_['text_success']     			= 'Настройки успешно изменены!';
-$_['text_status']         		= 'Статус';
+$_['text_success']     			= 'Your settings have been saved';
+$_['text_status']         		= 'Status';
 $_['text_account_ok']  			= 'Connection to Etsy OK';
-$_['text_api_other']            = 'Связи';
-$_['text_token_register']       = 'Регистрация';
+$_['text_api_other']            = 'Links';
+$_['text_token_register']       = 'Register';
 $_['text_api_ok']       		= 'API connection OK';
 $_['text_pull_orders']    		= 'Pull orders';
 $_['text_sync_settings']    	= 'Sync settings';
@@ -20,7 +17,7 @@ $_['text_complete']    			= 'Complete';
 $_['text_failed']    			= 'Failed';
 $_['text_orders_imported']    	= 'Order pull has been requested';
 $_['text_api_status']           = 'API connection';
-$_['text_edit']           		= 'Редактирование';
+$_['text_edit']           		= 'Edit Etsy settings';
 
 // Entry
 $_['entry_import_def_id']       = 'Import default status (unpaid):';

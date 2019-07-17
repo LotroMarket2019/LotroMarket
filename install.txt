@@ -1,7 +1,7 @@
 /////////////////////////////////
-///       OpenCart V3.x     ///
+///       OpenCart V2.1.x     ///
 ///  Инструкция по установке  ///
-///  https://ocstore.com  ///
+///  http://myopencart.com  ///
 /////////////////////////////////
 
 
@@ -23,18 +23,16 @@ These instructions are for a manual installation using FTP, cPanel or other web 
 
 3. Для Linux/Unix убедитесь, что папки и файлы доступны для записи.
 
-		chmod 0755 or 0777 system/storage/cache/
-		chmod 0755 or 0777 system/storage/download/
-		chmod 0755 or 0777 system/storage/logs/
-		chmod 0755 or 0777 system/storage/modification/
-		chmod 0755 or 0777 system/storage/session/
-		chmod 0755 or 0777 system/storage/upload/
-		chmod 0755 or 0777 system/storage/vendor/
-		chmod 0755 or 0777 image/
-		chmod 0755 or 0777 image/cache/
-		chmod 0755 or 0777 image/catalog/
-		chmod 0755 or 0777 config.php
-		chmod 0755 or 0777 admin/config.php
+		chmod 0755 или 0777 system/storage/cache/
+		chmod 0755 или 0777 system/storage/logs/
+		chmod 0755 или 0777 system/storage/download/
+		chmod 0755 или 0777 system/storage/upload/
+		chmod 0755 или 0777 system/storage/modification/
+		chmod 0755 или 0777 image/
+		chmod 0755 или 0777 image/cache/
+		chmod 0755 или 0777 image/catalog/
+		chmod 0755 или 0777 config.php
+		chmod 0755 или 0777 admin/config.php
 
 		Если при правах 0755 не работает, попробуйте 0777.
 
@@ -47,7 +45,6 @@ These instructions are for a manual installation using FTP, cPanel or other web 
 
 7. Удалите установочную директорию.
 
-8. Если вы загрузили скомпилированную версию с папкой «vendor» - она должна быть загружена выше корневой директории (в той же папке, где public_html или httpdocs)
 
 - Установка на Windows -
 
@@ -58,12 +55,10 @@ These instructions are for a manual installation using FTP, cPanel or other web 
 3. Для Windows убедитесь, что папки и файлы доступны для записи
 
 		system/storage/cache/
-		system/storage/download/
 		system/storage/logs/
-		system/storage/modification/
-		system/storage/session/
+		system/storage/download/
 		system/storage/upload/
-		system/storage/vendor/
+		system/storage/modification/
 		image/
 		image/cache/
 		image/catalog/

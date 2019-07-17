@@ -1,10 +1,7 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Text
-$_['text_title']				= 'Кредитные и Дебетовые карты';
-$_['text_secure_connection']	= 'Создание безопасного подключения ...';
+$_['text_title']				= 'Кредитная или дебетовая карта';
+$_['text_secure_connection']	= 'Установление защищенного соединения...';
 
 // Error
-$_['error_connection']			= 'Не удалось подключиться к PayPal. Если ошибка повторится обратитесь за помощью к администрации магазина или выберите другой способ оплаты.';
+$_['error_connection']			= 'Не удалось подключиться к PayPal. Пожалуйста, обратитесь за помощью к администратору магазина, или выберите другой способ оплаты.';

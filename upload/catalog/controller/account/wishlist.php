@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 class ControllerAccountWishList extends Controller {
 	public function index() {
 		if (!$this->customer->isLogged()) {
@@ -28,7 +25,6 @@ class ControllerAccountWishList extends Controller {
 		}
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->document->setRobots('noindex,follow');
 
 		$data['breadcrumbs'] = array();
 
@@ -47,6 +43,21 @@ class ControllerAccountWishList extends Controller {
 			'href' => $this->url->link('account/wishlist')
 		);
 
+		$data['heading_title'] = $this->language->get('heading_title');
+
+		$data['text_empty'] = $this->language->get('text_empty');
+
+		$data['column_image'] = $this->language->get('column_image');
+		$data['column_name'] = $this->language->get('column_name');
+		$data['column_model'] = $this->language->get('column_model');
+		$data['column_stock'] = $this->language->get('column_stock');
+		$data['column_price'] = $this->language->get('column_price');
+		$data['column_action'] = $this->language->get('column_action');
+
+		$data['button_continue'] = $this->language->get('button_continue');
+		$data['button_cart'] = $this->language->get('button_cart');
+		$data['button_remove'] = $this->language->get('button_remove');
+
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
 
@@ -64,7 +75,7 @@ class ControllerAccountWishList extends Controller {
 
 			if ($product_info) {
 				if ($product_info['image']) {
-					$image = $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_wishlist_height'));
+					$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
 				} else {
 					$image = false;
 				}

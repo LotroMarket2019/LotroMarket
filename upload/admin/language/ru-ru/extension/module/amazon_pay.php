@@ -1,13 +1,10 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
-$_['heading_title'] = 'Pay with Amazon';
+$_['heading_title'] = 'Оплата с Amazon';
 
 //Text
-$_['text_module'] = 'Модули';
-$_['text_success'] = 'Настройки успешно изменены!';
+$_['text_module'] = 'Modules';
+$_['text_success'] = 'Success: You have modified module Pay with Amazon!';
 $_['text_content_top'] = 'Content Top';
 $_['text_content_bottom'] = 'Content Bottom';
 $_['text_column_left'] = 'Column Left';
@@ -22,15 +19,16 @@ $_['text_small_button'] = 'Small';
 $_['text_medium_button'] = 'Medium';
 $_['text_large_button'] = 'Large';
 $_['text_x_large_button'] = 'X-Large';
+$_['text_extension']   = 'Модули';
 
 //Entry
 $_['entry_button_type'] = 'Button Type';
 $_['entry_button_colour'] = 'Button Colour';
 $_['entry_button_size'] = 'Button Size';
 $_['entry_layout'] = 'Layout';
-$_['entry_position'] = 'Расположение';
-$_['entry_status'] = 'Статус';
-$_['entry_sort_order'] = 'Порядок сортировки';
+$_['entry_position'] = 'Position';
+$_['entry_status'] = 'Status';
+$_['entry_sort_order'] = 'Sort Order';
 
 //Error
-$_['error_permission'] = 'У вас недостаточно прав для внесения изменений!';
+$_['error_permission'] = 'Warning: You do not have permission to modify module Pay with Amazon!';

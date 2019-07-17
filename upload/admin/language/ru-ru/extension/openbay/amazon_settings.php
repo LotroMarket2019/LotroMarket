@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']        				= 'Marketplace settings';
 $_['text_openbay']						= 'OpenBay Pro';
@@ -12,7 +9,7 @@ $_['text_api_status']               	= 'API connection status';
 $_['text_api_ok']                   	= 'Connection OK, Auth OK';
 $_['text_api_auth_error']           	= 'Connection OK, Auth failed';
 $_['text_api_error']                	= 'Connection error';
-$_['text_order_statuses']           	= 'Статус заказов';
+$_['text_order_statuses']           	= 'Order Statuses';
 $_['text_unshipped']                	= 'Unshipped';
 $_['text_partially_shipped']        	= 'Partially Shipped';
 $_['text_shipped']                  	= 'Shipped';
@@ -41,12 +38,12 @@ $_['text_refurbished'] 					= 'Refurbished';
 $_['error_permission']         			= 'You do not have access to this module';
 
 // Entry
-$_['entry_status']                 		= 'Статус';
-$_['entry_token']                    	= 'Токен';
+$_['entry_status']                 		= 'Status';
+$_['entry_token']                    	= 'Token';
 $_['entry_string1']              		= 'Encryption String 1';
 $_['entry_string2']              		= 'Encryption String 2';
 $_['entry_import_tax']               	= 'Tax for imported items';
-$_['entry_customer_group']           	= 'Группа покупателей';
+$_['entry_customer_group']           	= 'Customer Group';
 $_['entry_tax_percentage']           	= 'Modify price';
 $_['entry_default_condition']        	= 'Default product condition type';
 $_['entry_marketplace_default']			= 'Default marketplace';
@@ -56,7 +53,7 @@ $_['entry_default_shipping']         	= 'Default shipping';
 // Tabs
 $_['tab_settings']            			= 'API details';
 $_['tab_listing']                  		= 'Listings';
-$_['tab_orders']                   		= 'Заказы';
+$_['tab_orders']                   		= 'Orders';
 
 // Help
 $_['help_import_tax']          			= 'Used if Amazon does not return tax information';

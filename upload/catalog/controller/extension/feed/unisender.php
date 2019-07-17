@@ -1,6 +1,6 @@
 <?php
 /**
-* Unisender subscriber for OpenCart (ocStore) 2.3.x
+* Unisender subscriber for OpenCart (ocStore) 2.x
 *
 * Main class subscribe/unsubscribe Unisender maillists
 *
@@ -16,14 +16,14 @@ class ControllerExtensionFeedUnisender extends Controller {
 		$newsletter = $this->customer->getNewsletter();
 		$data = array('email'=>$this->customer->getEmail());
 		
-		$key = $this->config->get('feed_unisender_key');
-		if (!$this->config->get('feed_unisender_status') || !$key) return;
+		$key = $this->config->get('unisender_key');
+		if (!$this->config->get('unisender_status') || !$key) return;
 	
 		$field_names = array(0=>'email', 1=>'email_status');
 		$dat = array(0=>array(0=>$data['email'], 1=>($newsletter ? 'active' : 'inactive')));
 		
 		if ($newsletter) {
-			$subscribtions = $this->config->get('feed_unisender_subscribtion');
+			$subscribtions = $this->config->get('unisender_subscribtion');
 			$field_names[2] = 'email_list_ids';
 			$dat[0][2] = implode(',', $subscribtions);
 		}
@@ -46,16 +46,16 @@ class ControllerExtensionFeedUnisender extends Controller {
 	}
 	
 	public function subscribe($data) {
-		$key = $this->config->get('feed_unisender_key');
-		if (!$this->config->get('feed_unisender_status') || !$key) return;
+		$key = $this->config->get('unisender_key');
+		if (!$this->config->get('unisender_status') || !$key) return;
 		
-		$subscribtions = $this->config->get('feed_unisender_subscribtion');
+		$subscribtions = $this->config->get('unisender_subscribtion');
 		
 		$field_names = array(0=>'email');
 		$dat = array(0=>array(0=>$data['email']));
-		$double_optin = $this->config->get('feed_unisender_ignore') ? 1 : 0;
+		$double_optin = 0;
 		
-		if (((isset($data['newsletter']) && $data['newsletter']) || $this->config->get('feed_unisender_ignore')) && is_array($subscribtions) && count($subscribtions) > 0) {
+		if (((isset($data['newsletter']) && $data['newsletter']) || $this->config->get('unisender_ignore')) && is_array($subscribtions) && count($subscribtions) > 0) {
 			$field_names[1] = 'email_request_ip';
 			$dat[0][1] = $this->request->server['REMOTE_ADDR'];
 
@@ -70,6 +70,8 @@ class ControllerExtensionFeedUnisender extends Controller {
 			
 			$field_names[5] = 'email_list_ids';
 			$dat[0][5] = implode(',', $subscribtions);
+			
+			$double_optin = 1;
 		}
 		if (isset($data['telephone']) && $data['telephone']) {
 			$field_names[6] = 'phone';
@@ -78,12 +80,11 @@ class ControllerExtensionFeedUnisender extends Controller {
 		$field_names[7] = 'Name';
 		$dat[0][7] = trim($data['firstname'].' '.$data['lastname']);
 				
-		$res = $this->send($field_names, $dat, $double_optin);
-		return $res;
+		return $this->send($field_names, $dat, $double_optin);
 	}
 	
 	private function send($field_names, $dat, $double_optin=0) {
-		$key = $this->config->get('feed_unisender_key');
+		$key = $this->config->get('unisender_key');
 		$exp = array(
 			'api_key' => $key,
 			'double_optin' => $double_optin
@@ -96,8 +97,7 @@ class ControllerExtensionFeedUnisender extends Controller {
 			$exp['data[0]['.$n.']'] = $v;
 		}
 	
-        $ch = curl_init ('https://api.unisender.com/ru/api/importContacts?format=json');
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $ch = curl_init ('http://api.unisender.com/ru/api/importContacts?format=json') ;
         curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1) ;
         curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $exp);

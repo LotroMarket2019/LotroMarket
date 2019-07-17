@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']               = 'Установка успешно завершена!';
 
@@ -37,4 +34,4 @@ $_['button_mail']                 = 'Подписаться';
 $_['button_setup']                = 'Установить';
 
 // Error
-$_['error_warning']               = 'Установочная папка до сих пор существует! Зайдите на FTP и удалите папку install';
+$_['error_warning']               = 'Не забудьте удалить папку INSTALL!';

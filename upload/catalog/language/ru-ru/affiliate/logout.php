@@ -1,11 +1,8 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
-$_['heading_title'] = 'Выход из Кабинета Партнера';
+$_['heading_title'] = 'Выход из кабинета партнера';
 
 // Text
-$_['text_message']  = '<p>Вы вышли из Кабинета Партнера.</p>';
-$_['text_account']  = 'Кабинет Партнера';
+$_['text_message']  = '<p>Вы вышли из кабинета партнера.</p><p>Ваша корзина покупок была сохранена. Она будет восстановлена при следующем входе в личный кабинет.</p>';
+$_['text_account']  = 'Кабинет партнера';
 $_['text_logout']   = 'Выход';

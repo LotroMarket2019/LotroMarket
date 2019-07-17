@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 class ControllerAccountTransaction extends Controller {
 	public function index() {
 		if (!$this->customer->isLogged()) {
@@ -13,7 +10,6 @@ class ControllerAccountTransaction extends Controller {
 		$this->load->language('account/transaction');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->document->setRobots('noindex,follow');
 
 		$data['breadcrumbs'] = array();
 
@@ -33,8 +29,17 @@ class ControllerAccountTransaction extends Controller {
 		);
 
 		$this->load->model('account/transaction');
-		
+
+		$data['heading_title'] = $this->language->get('heading_title');
+
+		$data['column_date_added'] = $this->language->get('column_date_added');
+		$data['column_description'] = $this->language->get('column_description');
 		$data['column_amount'] = sprintf($this->language->get('column_amount'), $this->config->get('config_currency'));
+
+		$data['text_total'] = $this->language->get('text_total');
+		$data['text_empty'] = $this->language->get('text_empty');
+
+		$data['button_continue'] = $this->language->get('button_continue');
 
 		if (isset($this->request->get['page'])) {
 			$page = $this->request->get['page'];

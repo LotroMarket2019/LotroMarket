@@ -32,11 +32,8 @@ class ControllerStartupStartup extends Controller {
 			}
 		}
 
-		// Theme
-		$this->config->set('template_cache', $this->config->get('developer_theme'));
-		
 		// Url
-		$this->registry->set('url', new Url($this->config->get('config_url'), $this->config->get('config_ssl')));
+		$this->registry->set('url', new Url($this->config->get('config_url'), $this->config->get('config_secure') ? $this->config->get('config_ssl') : $this->config->get('config_url')));
 		
 		// Language
 		$code = '';
@@ -108,17 +105,25 @@ class ControllerStartupStartup extends Controller {
 		// Set the config language_id
 		$this->config->set('config_language_id', $languages[$code]['language_id']);	
 
+		// Set multiLanguage settings
+		$langdata = $this->config->get('config_langdata');
+		if (isset($langdata[$languages[$code]['language_id']])) {
+			foreach ($langdata[$languages[$code]['language_id']] as $key => $value) {
+				$this->config->set('config_' . $key, $value);
+			}
+		}
+
+
 		// Customer
 		$customer = new Cart\Customer($this->registry);
 		$this->registry->set('customer', $customer);
 		
 		// Customer Group
-		if (isset($this->session->data['customer']) && isset($this->session->data['customer']['customer_group_id'])) {
+		if ($this->customer->isLogged()) {
+			$this->config->set('config_customer_group_id', $this->customer->getGroupId());
+		} elseif (isset($this->session->data['customer']) && isset($this->session->data['customer']['customer_group_id'])) {
 			// For API calls
 			$this->config->set('config_customer_group_id', $this->session->data['customer']['customer_group_id']);
-		} elseif ($this->customer->isLogged()) {
-			// Logged in customers
-			$this->config->set('config_customer_group_id', $this->customer->getGroupId());
 		} elseif (isset($this->session->data['guest']) && isset($this->session->data['guest']['customer_group_id'])) {
 			$this->config->set('config_customer_group_id', $this->session->data['guest']['customer_group_id']);
 		}
@@ -129,6 +134,9 @@ class ControllerStartupStartup extends Controller {
 		
 			$this->db->query("UPDATE `" . DB_PREFIX . "marketing` SET clicks = (clicks + 1) WHERE code = '" . $this->db->escape($this->request->get['tracking']) . "'");
 		}		
+		
+		// Affiliate
+		$this->registry->set('affiliate', new Cart\Affiliate($this->registry));
 		
 		// Currency
 		$code = '';

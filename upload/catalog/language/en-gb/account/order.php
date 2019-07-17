@@ -2,12 +2,16 @@
 // Heading
 $_['heading_title']         = 'Order History';
 
+// Button
+$_['button_ocstore_payeer_onpay'] = 'Onpay Online via Payeer';
+$_['button_ocstore_yk_onpay']     = 'Onpay Online via Yandex.Kassa';
+
 // Text
 $_['text_account']          = 'Account';
 $_['text_order']            = 'Order Information';
 $_['text_order_detail']     = 'Order Details';
 $_['text_invoice_no']       = 'Invoice No.:';
-$_['text_account_order_id'] = 'Order ID:';
+$_['text_order_id']         = 'Order ID:';
 $_['text_date_added']       = 'Date Added:';
 $_['text_shipping_address'] = 'Shipping Address';
 $_['text_shipping_method']  = 'Shipping Method:';

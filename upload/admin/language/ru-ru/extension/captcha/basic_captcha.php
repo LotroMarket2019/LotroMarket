@@ -1,16 +1,13 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
-$_['heading_title']    = 'Стандартная Капча';
+$_['heading_title']    = 'Basic Captcha';
 
 // Text
-$_['text_captcha']     = 'Капча';
-$_['text_success']	   = 'Настройки успешно изменены!';
-$_['text_edit']        = 'Настройки капчи';
+$_['text_success']	   = 'Настройки Basic Captcha успешно обновлены!';
+$_['text_edit']        = 'Редактирование Basic Captcha';
+$_['text_extension']   = 'Captcha';
 
 // Entry
 $_['entry_status']     = 'Статус';
 
 // Error
-$_['error_permission'] = 'У вас недостаточно прав для внесения изменений!';
+$_['error_permission'] = 'У вас нет прав для управления этим модулем!';

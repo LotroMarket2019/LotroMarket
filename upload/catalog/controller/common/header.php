@@ -1,19 +1,16 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 class ControllerCommonHeader extends Controller {
 	public function index() {
 		// Analytics
-		$this->load->model('setting/extension');
+		$this->load->model('extension/extension');
 
 		$data['analytics'] = array();
 
-		$analytics = $this->model_setting_extension->getExtensions('analytics');
+		$analytics = $this->model_extension_extension->getExtensions('analytics');
 
 		foreach ($analytics as $analytic) {
-			if ($this->config->get('analytics_' . $analytic['code'] . '_status')) {
-				$data['analytics'][] = $this->load->controller('extension/analytics/' . $analytic['code'], $this->config->get('analytics_' . $analytic['code'] . '_status'));
+			if ($this->config->get($analytic['code'] . '_status')) {
+				$data['analytics'][] = $this->load->controller('extension/analytics/' . $analytic['code'], $this->config->get($analytic['code'] . '_status'));
 			}
 		}
 
@@ -33,9 +30,8 @@ class ControllerCommonHeader extends Controller {
 		$data['description'] = $this->document->getDescription();
 		$data['keywords'] = $this->document->getKeywords();
 		$data['links'] = $this->document->getLinks();
-		$data['robots'] = $this->document->getRobots();
 		$data['styles'] = $this->document->getStyles();
-		$data['scripts'] = $this->document->getScripts('header');
+		$data['scripts'] = $this->document->getScripts();
 		$data['lang'] = $this->language->get('code');
 		$data['direction'] = $this->language->get('direction');
 
@@ -48,18 +44,10 @@ class ControllerCommonHeader extends Controller {
 		}
 
 		$this->load->language('common/header');
-		
-		
-		$host = isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1')) ? HTTPS_SERVER : HTTP_SERVER;
-		if ($this->request->server['REQUEST_URI'] == '/') {
-			$data['og_url'] = $this->url->link('common/home');
-		} else {
-			$data['og_url'] = $host . substr($this->request->server['REQUEST_URI'], 1, (strlen($this->request->server['REQUEST_URI'])-1));
-		}
-		
+		$data['og_url'] = (isset($this->request->server['HTTPS']) ? HTTPS_SERVER : HTTP_SERVER) . substr($this->request->server['REQUEST_URI'], 1, (strlen($this->request->server['REQUEST_URI'])-1));
 		$data['og_image'] = $this->document->getOgImage();
-		
 
+		$data['text_home'] = $this->language->get('text_home');
 
 		// Wishlist
 		if ($this->customer->isLogged()) {
@@ -70,8 +58,21 @@ class ControllerCommonHeader extends Controller {
 			$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
 		}
 
+		$data['text_shopping_cart'] = $this->language->get('text_shopping_cart');
 		$data['text_logged'] = sprintf($this->language->get('text_logged'), $this->url->link('account/account', '', true), $this->customer->getFirstName(), $this->url->link('account/logout', '', true));
-		
+
+		$data['text_account'] = $this->language->get('text_account');
+		$data['text_register'] = $this->language->get('text_register');
+		$data['text_login'] = $this->language->get('text_login');
+		$data['text_order'] = $this->language->get('text_order');
+		$data['text_transaction'] = $this->language->get('text_transaction');
+		$data['text_download'] = $this->language->get('text_download');
+		$data['text_logout'] = $this->language->get('text_logout');
+		$data['text_checkout'] = $this->language->get('text_checkout');
+		$data['text_page'] = $this->language->get('text_page');
+		$data['text_category'] = $this->language->get('text_category');
+		$data['text_all'] = $this->language->get('text_all');
+
 		$data['home'] = $this->url->link('common/home');
 		$data['wishlist'] = $this->url->link('account/wishlist', '', true);
 		$data['logged'] = $this->customer->isLogged();
@@ -86,18 +87,68 @@ class ControllerCommonHeader extends Controller {
 		$data['checkout'] = $this->url->link('checkout/checkout', '', true);
 		$data['contact'] = $this->url->link('information/contact');
 		$data['telephone'] = $this->config->get('config_telephone');
-		
+
+		// Menu
+		$this->load->model('catalog/category');
+
+		$this->load->model('catalog/product');
+
+		$data['categories'] = array();
+
+		$categories = $this->model_catalog_category->getCategories(0);
+
+		foreach ($categories as $category) {
+			if ($category['top']) {
+				// Level 2
+				$children_data = array();
+
+				$children = $this->model_catalog_category->getCategories($category['category_id']);
+
+				foreach ($children as $child) {
+					$filter_data = array(
+						'filter_category_id'  => $child['category_id'],
+						'filter_sub_category' => true
+					);
+
+					$children_data[] = array(
+						'name'  => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
+						'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])
+					);
+				}
+
+				// Level 1
+				$data['categories'][] = array(
+					'name'     => $category['name'],
+					'children' => $children_data,
+					'column'   => $category['column'] ? $category['column'] : 1,
+					'href'     => $this->url->link('product/category', 'path=' . $category['category_id'])
+				);
+			}
+		}
+
 		$data['language'] = $this->load->controller('common/language');
 		$data['currency'] = $this->load->controller('common/currency');
-		$data['currency'] = $this->load->controller('common/currency');
-		if ($this->config->get('configblog_blog_menu')) {
-			$data['blog_menu'] = $this->load->controller('blog/menu');
-		} else {
-			$data['blog_menu'] = '';
-		}
 		$data['search'] = $this->load->controller('common/search');
 		$data['cart'] = $this->load->controller('common/cart');
-		$data['menu'] = $this->load->controller('common/menu');
+
+		// For page specific css
+		if (isset($this->request->get['route'])) {
+			if (isset($this->request->get['product_id'])) {
+				$class = '-' . $this->request->get['product_id'];
+			} elseif (isset($this->request->get['path'])) {
+				$class = '-' . $this->request->get['path'];
+			} elseif (isset($this->request->get['manufacturer_id'])) {
+				$class = '-' . $this->request->get['manufacturer_id'];
+			} elseif (isset($this->request->get['information_id'])) {
+				$class = '-' . $this->request->get['information_id'];
+			} else {
+				$class = '';
+			}
+
+			$data['class'] = str_replace('/', '-', $this->request->get['route']) . $class;
+		} else {
+			$data['class'] = 'common-home';
+		}
 
 		return $this->load->view('common/header', $data);
 	}

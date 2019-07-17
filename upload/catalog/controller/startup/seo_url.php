@@ -1,34 +1,14 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 class ControllerStartupSeoUrl extends Controller {
-	
-	//seopro start
-		private $seo_pro;
-		public function __construct($registry) {
-			parent::__construct($registry);	
-			$this->seo_pro = new SeoPro($registry);
-		}
-	//seopro end
-	
 	public function index() {
-
 		// Add rewrite to url class
 		if ($this->config->get('config_seo_url')) {
 			$this->url->addRewrite($this);
 		}
-		
-	
+
 		// Decode URL
 		if (isset($this->request->get['_route_'])) {
 			$parts = explode('/', $this->request->get['_route_']);
-			
-		//seopro prepare route
-		if($this->config->get('config_seo_pro')){		
-			$parts = $this->seo_pro->prepareRoute($parts);
-		}
-		//seopro prepare route end
 
 			// remove any empty arrays from trailing
 			if (utf8_strlen(end($parts)) == 0) {
@@ -36,7 +16,7 @@ class ControllerStartupSeoUrl extends Controller {
 			}
 
 			foreach ($parts as $part) {
-				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE keyword = '" . $this->db->escape($part) . "' AND store_id = '" . (int)$this->config->get('config_store_id') . "'");
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE keyword = '" . $this->db->escape($part) . "'");
 
 				if ($query->num_rows) {
 					$url = explode('=', $query->row['query']);
@@ -65,9 +45,7 @@ class ControllerStartupSeoUrl extends Controller {
 						$this->request->get['route'] = $query->row['query'];
 					}
 				} else {
-					if(!$this->config->get('config_seo_pro')){		
-						$this->request->get['route'] = 'error/not_found';
-					}
+					$this->request->get['route'] = 'error/not_found';
 
 					break;
 				}
@@ -85,42 +63,21 @@ class ControllerStartupSeoUrl extends Controller {
 				}
 			}
 		}
-		
-		//seopro validate
-		if($this->config->get('config_seo_pro')){		
-			$this->seo_pro->validate();
-		}
-	//seopro validate
-		
 	}
 
 	public function rewrite($link) {
 		$url_info = parse_url(str_replace('&amp;', '&', $link));
 
-		if($this->config->get('config_seo_pro')){		
-		$url = null;
-			} else {
 		$url = '';
-		}
 
 		$data = array();
 
 		parse_str($url_info['query'], $data);
-		
-		//seo_pro baseRewrite
-		if($this->config->get('config_seo_pro')){		
-			list($url, $data, $postfix) =  $this->seo_pro->baseRewrite($data, (int)$this->config->get('config_language_id'));	
-		}
-		
-		
-
-		
-		//seo_pro baseRewrite
 
 		foreach ($data as $key => $value) {
 			if (isset($data['route'])) {
 				if (($data['route'] == 'product/product' && $key == 'product_id') || (($data['route'] == 'product/manufacturer/info' || $data['route'] == 'product/product') && $key == 'manufacturer_id') || ($data['route'] == 'information/information' && $key == 'information_id')) {
-					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE `query` = '" . $this->db->escape($key . '=' . (int)$value) . "' AND store_id = '" . (int)$this->config->get('config_store_id') . "' AND language_id = '" . (int)$this->config->get('config_language_id') . "'");
+					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = '" . $this->db->escape($key . '=' . (int)$value) . "'");
 
 					if ($query->num_rows && $query->row['keyword']) {
 						$url .= '/' . $query->row['keyword'];
@@ -131,7 +88,7 @@ class ControllerStartupSeoUrl extends Controller {
 					$categories = explode('_', $value);
 
 					foreach ($categories as $category) {
-						$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE `query` = 'category_id=" . (int)$category . "' AND store_id = '" . (int)$this->config->get('config_store_id') . "' AND language_id = '" . (int)$this->config->get('config_language_id') . "'");
+						$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = 'category_id=" . (int)$category . "'");
 
 						if ($query->num_rows && $query->row['keyword']) {
 							$url .= '/' . $query->row['keyword'];
@@ -147,23 +104,7 @@ class ControllerStartupSeoUrl extends Controller {
 			}
 		}
 
-		//seo_pro add blank url
-		if($this->config->get('config_seo_pro')) {		
-			$condition = ($url !== null);
-		} else {
-			$condition = $url;
-		}
-
-		if ($condition) {
-			if($this->config->get('config_seo_pro')){		
-				if($this->config->get('config_page_postfix') && $postfix) {
-					$url .= $this->config->get('config_page_postfix');
-				} elseif($this->config->get('config_seopro_addslash')) {
-					$url .= '/';
-				} 
-			}
-			
-		//seo_pro add blank url
+		if ($url) {
 			unset($data['route']);
 
 			$query = '';

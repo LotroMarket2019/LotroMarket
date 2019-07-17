@@ -1,13 +1,9 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 class ControllerCheckoutFailure extends Controller {
 	public function index() {
 		$this->load->language('checkout/failure');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->document->setRobots('noindex,follow');
 
 		$data['breadcrumbs'] = array();
 
@@ -31,7 +27,11 @@ class ControllerCheckoutFailure extends Controller {
 			'href' => $this->url->link('checkout/failure')
 		);
 
+		$data['heading_title'] = $this->language->get('heading_title');
+
 		$data['text_message'] = sprintf($this->language->get('text_message'), $this->url->link('information/contact'));
+
+		$data['button_continue'] = $this->language->get('button_continue');
 
 		$data['continue'] = $this->url->link('common/home');
 

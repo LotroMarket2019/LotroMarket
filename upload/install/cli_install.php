@@ -18,11 +18,10 @@
 //                               --username admin \
 //                               --password admin \
 //                               --email youremail@example.com \
-//                               --http_server http://localhost/opencart/
+//                               --http_server http://localhost/opencart
 //
 
 ini_set('display_errors', 1);
-
 error_reporting(E_ALL);
 
 // DIR
@@ -71,7 +70,7 @@ function usage() {
 		'--username', 'admin',
 		'--password', 'admin',
 		'--email', 'youremail@example.com',
-		'--http_server', 'http://localhost/opencart/'
+		'--http_server', 'http://localhost/opencart'
 	));
 	echo 'php cli_install.php install ' . $options . "\n\n";
 }
@@ -142,8 +141,8 @@ function install($options) {
 
 function check_requirements() {
 	$error = null;
-	if (phpversion() < '5.4') {
-		$error = 'Warning: You need to use PHP5.4+ or above for OpenCart to work!';
+	if (phpversion() < '5.0') {
+		$error = 'Warning: You need to use PHP5 or above for OpenCart to work!';
 	}
 
 	if (!ini_get('file_uploads')) {
@@ -166,8 +165,8 @@ function check_requirements() {
 		$error = 'Warning: CURL extension needs to be loaded for OpenCart to work!';
 	}
 
-	if (!function_exists('openssl_encrypt')) {
-		$error = 'Warning: OpenSSL extension needs to be loaded for OpenCart to work!';
+	if (!function_exists('mcrypt_encrypt')) {
+		$error = 'Warning: mCrypt extension needs to be loaded for OpenCart to work!';
 	}
 
 	if (!extension_loaded('zlib')) {
@@ -224,7 +223,7 @@ function setup_db($data) {
 
 		$db->query("UPDATE `" . $data['db_prefix'] . "product` SET `viewed` = '0'");
 
-		$db->query("INSERT INTO `" . $data['db_prefix'] . "api` SET username = 'Default', `key` = '" . $db->escape(token(256)) . "', status = 1, date_added = NOW(), date_modified = NOW()");
+		$db->query("INSERT INTO `" . $data['db_prefix'] . "api` SET name = 'Default', `key` = '" . $db->escape(token(256)) . "', status = 1, date_added = NOW(), date_modified = NOW()");
 
 		$api_id = $db->getLastId();
 
@@ -238,24 +237,24 @@ function write_config_files($options) {
 	$output  = '<?php' . "\n";
 	$output .= '// HTTP' . "\n";
 	$output .= 'define(\'HTTP_SERVER\', \'' . $options['http_server'] . '\');' . "\n";
+	$output .= 'define(\'HTTP_ADMIN\', \'' . $options['http_server'] . 'admin/\');' . "\n\n";
 
 	$output .= '// HTTPS' . "\n";
 	$output .= 'define(\'HTTPS_SERVER\', \'' . $options['http_server'] . '\');' . "\n";
 
 	$output .= '// DIR' . "\n";
-	$output .= 'define(\'DIR_APPLICATION\', \'' . addslashes(DIR_OPENCART) . 'catalog/\');' . "\n";
-	$output .= 'define(\'DIR_SYSTEM\', \'' . addslashes(DIR_OPENCART) . 'system/\');' . "\n";
-	$output .= 'define(\'DIR_IMAGE\', \'' . addslashes(DIR_OPENCART) . 'image/\');' . "\n";
-	$output .= 'define(\'DIR_STORAGE\', DIR_SYSTEM . \'storage/\');' . "\n";			
-	$output .= 'define(\'DIR_LANGUAGE\', DIR_APPLICATION . \'language/\');' . "\n";
-	$output .= 'define(\'DIR_TEMPLATE\', DIR_APPLICATION . \'view/theme/\');' . "\n";
-	$output .= 'define(\'DIR_CONFIG\', DIR_SYSTEM . \'config/\');' . "\n";
-	$output .= 'define(\'DIR_CACHE\', DIR_STORAGE . \'cache/\');' . "\n";
-	$output .= 'define(\'DIR_DOWNLOAD\', DIR_STORAGE . \'download/\');' . "\n";
-	$output .= 'define(\'DIR_LOGS\', DIR_STORAGE . \'logs/\');' . "\n";
-	$output .= 'define(\'DIR_MODIFICATION\', DIR_STORAGE . \'modification/\');' . "\n";
-	$output .= 'define(\'DIR_SESSION\', DIR_STORAGE . \'session/\');' . "\n";
-	$output .= 'define(\'DIR_UPLOAD\', DIR_STORAGE . \'upload/\');' . "\n\n";
+	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'catalog/\');' . "\n";
+	$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_OPENCART . 'system/\');' . "\n";
+	$output .= 'define(\'DIR_DATABASE\', \'' . DIR_OPENCART . 'system/database/\');' . "\n";
+	$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_OPENCART . 'catalog/language/\');' . "\n";
+	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_OPENCART . 'catalog/view/theme/\');' . "\n";
+	$output .= 'define(\'DIR_CONFIG\', \'' . DIR_OPENCART . 'system/config/\');' . "\n";
+	$output .= 'define(\'DIR_IMAGE\', \'' . DIR_OPENCART . 'image/\');' . "\n";
+	$output .= 'define(\'DIR_CACHE\', \'' . DIR_OPENCART . 'system/storage/cache/\');' . "\n";
+	$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_OPENCART . 'system/storage/download/\');' . "\n";
+	$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_OPENCART . 'system/storage/upload/\');' . "\n";
+	$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_OPENCART . 'system/storage/modification/\');' . "\n";
+	$output .= 'define(\'DIR_LOGS\', \'' . DIR_OPENCART . 'system/storage/logs/\');' . "\n\n";
 
 	$output .= '// DB' . "\n";
 	$output .= 'define(\'DB_DRIVER\', \'' . addslashes($options['db_driver']) . '\');' . "\n";
@@ -265,7 +264,7 @@ function write_config_files($options) {
 	$output .= 'define(\'DB_DATABASE\', \'' . addslashes($options['db_database']) . '\');' . "\n";
 	$output .= 'define(\'DB_PREFIX\', \'' . addslashes($options['db_prefix']) . '\');' . "\n";
 	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n";
-
+	$output .= '?>';
 
 	$file = fopen(DIR_OPENCART . 'config.php', 'w');
 
@@ -283,20 +282,19 @@ function write_config_files($options) {
 	$output .= 'define(\'HTTPS_CATALOG\', \'' . $options['http_server'] . '\');' . "\n";
 
 	$output .= '// DIR' . "\n";
-	$output .= 'define(\'DIR_APPLICATION\', \'' . addslashes(DIR_OPENCART) . 'admin/\');' . "\n";
-	$output .= 'define(\'DIR_SYSTEM\', \'' . addslashes(DIR_OPENCART) . 'system/\');' . "\n";
-	$output .= 'define(\'DIR_IMAGE\', \'' . addslashes(DIR_OPENCART) . 'image/\');' . "\n";	
-	$output .= 'define(\'DIR_STORAGE\', DIR_SYSTEM . \'storage/\');' . "\n";
-	$output .= 'define(\'DIR_CATALOG\', \'' . addslashes(DIR_OPENCART) . 'catalog/\');' . "\n";
-	$output .= 'define(\'DIR_LANGUAGE\', DIR_APPLICATION . \'language/\');' . "\n";
-	$output .= 'define(\'DIR_TEMPLATE\', DIR_APPLICATION . \'view/template/\');' . "\n";
-	$output .= 'define(\'DIR_CONFIG\', DIR_SYSTEM . \'config/\');' . "\n";
-	$output .= 'define(\'DIR_CACHE\', DIR_STORAGE . \'cache/\');' . "\n";
-	$output .= 'define(\'DIR_DOWNLOAD\', DIR_STORAGE . \'download/\');' . "\n";
-	$output .= 'define(\'DIR_LOGS\', DIR_STORAGE . \'logs/\');' . "\n";
-	$output .= 'define(\'DIR_MODIFICATION\', DIR_STORAGE . \'modification/\');' . "\n";
-	$output .= 'define(\'DIR_SESSION\', DIR_STORAGE . \'session/\');' . "\n";
-	$output .= 'define(\'DIR_UPLOAD\', DIR_STORAGE . \'upload/\');' . "\n\n";
+	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'admin/\');' . "\n";
+	$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_OPENCART . 'system/\');' . "\n";
+	$output .= 'define(\'DIR_DATABASE\', \'' . DIR_OPENCART . 'system/database/\');' . "\n";
+	$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_OPENCART . 'admin/language/\');' . "\n";
+	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_OPENCART . 'admin/view/template/\');' . "\n";
+	$output .= 'define(\'DIR_CONFIG\', \'' . DIR_OPENCART . 'system/config/\');' . "\n";
+	$output .= 'define(\'DIR_IMAGE\', \'' . DIR_OPENCART . 'image/\');' . "\n";
+	$output .= 'define(\'DIR_CACHE\', \'' . DIR_OPENCART . 'system/storage/cache/\');' . "\n";
+	$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_OPENCART . 'system/storage/download/\');' . "\n";
+	$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_OPENCART . 'system/storage/upload/\');' . "\n";
+	$output .= 'define(\'DIR_LOGS\', \'' . DIR_OPENCART . 'system/storage/logs/\');' . "\n";
+	$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_OPENCART . 'system/storage/modification/\');' . "\n";
+	$output .= 'define(\'DIR_CATALOG\', \'' . DIR_OPENCART . 'catalog/\');' . "\n\n";
 
 	$output .= '// DB' . "\n";
 	$output .= 'define(\'DB_DRIVER\', \'' . addslashes($options['db_driver']) . '\');' . "\n";
@@ -306,11 +304,7 @@ function write_config_files($options) {
 	$output .= 'define(\'DB_DATABASE\', \'' . addslashes($options['db_database']) . '\');' . "\n";
 	$output .= 'define(\'DB_PREFIX\', \'' . addslashes($options['db_prefix']) . '\');' . "\n";
 	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n";
-
-	$output .= '// OpenCart API' . "\n";
-	$output .= 'define(\'OPENCART_SERVER\', \'https://www.opencart.com/\');' . "\n";
-	$output .= 'define(\'OPENCARTFORUM_SERVER\', \'https://opencartforum.com/\');' . "\n";
-
+	$output .= '?>';
 
 	$file = fopen(DIR_OPENCART . 'admin/config.php', 'w');
 

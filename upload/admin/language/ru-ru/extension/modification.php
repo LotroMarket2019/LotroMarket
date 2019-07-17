@@ -1,22 +1,19 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
-$_['heading_title']     = 'Модификаторы';
+$_['heading_title']     	= 'Менеджер дополнений';
 
 // Text
-$_['text_success']      = 'Настройки успешно изменены!';
-$_['text_refresh']      = 'Каждый раз, когда вы включили / отключили или удалили модификатор, вам необходимо нажать кнопку обновления, чтобы обновить кэш модификаций!';
-$_['text_list']         = 'Список модификаторов';
+$_['text_success']          = 'Список дополнений OCMOD успешно обновлен!';
+$_['text_refresh']          = 'Когда вы включаете / отключаете или удаляете одно из дополнений, необходимо нажать на кнопку "Обновить" - чтобы обновить Кэш!';
+$_['text_list']          	= 'Список установленных дополнений OCMOD';
 
 // Column
-$_['column_name']       = 'Название модификатора';
-$_['column_author']     = 'Автор';
-$_['column_version']    = 'Версия';
-$_['column_status']     = 'Статус';
-$_['column_date_added'] = 'Дата добавления';
-$_['column_action']     = 'Действие';
+$_['column_name']          	= 'Название';
+$_['column_author']         = 'Автор';
+$_['column_version']        = 'Версия';
+$_['column_status']         = 'Статус';
+$_['column_date_added']     = 'Дата';
+$_['column_action']         = 'Действие';
 
 // Error
-$_['error_permission']  = 'У вас недостаточно прав для внесения изменений!';
+$_['error_permission']      = 'У вас не достаточно прав!';

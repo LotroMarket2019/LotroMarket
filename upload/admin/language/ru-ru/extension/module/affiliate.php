@@ -1,16 +1,14 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']    = 'Партнерская программа';
 
-$_['text_module']      = 'Модули';
-$_['text_success']     = 'Настройки успешно изменены!';
-$_['text_edit']        = 'Редактирование';
+// Text
+$_['text_extension']   = 'Модули';
+$_['text_success']     = 'Настройки модуля обновлены!';
+$_['text_edit']        = 'Редактирование модуля';
 
 // Entry
 $_['entry_status']     = 'Статус';
 
 // Error
-$_['error_permission'] = 'У вас недостаточно прав для внесения изменений!';
+$_['error_permission'] = 'У вас нет прав для управления этим модулем!';
